@@ -1,7 +1,8 @@
 import Power from "generics/interfaces.ato"
 import I2C from "generics/interfaces.ato"
-import Resistor from "generics/passives.ato"
-import Capacitor from "generics/passives.ato"
+import Pair from "generics/interfaces.ato"
+import Resistor from "generics/resistors.ato"
+import Capacitor from "generics/capacitors.ato"
 
 component _TCA9548APWR:
     # component TCA9548APWR
@@ -56,6 +57,7 @@ module TCA9548APWR:
     ic = new _TCA9548APWR
     power = new Power
     i2c = new I2C
+    reset = new Pair
     i2c.sda ~ ic.SDA
     i2c.scl ~ ic.SCL
 
@@ -66,11 +68,17 @@ module TCA9548APWR:
     #bypass caps
     c1 = new Capacitor
     c1.value = 100nF +/- 20%
-    c1.footprint = "0402"
+    c1.package = "0402"
+    c1.power ~ power
 
     c2 = new Capacitor
     c2.value = 2.2uF +/- 20%
-    c2.footprint = "0603"
+    c2.package = "0603"
+    c2.power ~ power
+
+    # Reset
+    reset.io ~ ic.RESET_
+    reset.gnd ~ power.gnd
 
     # Address bits
     # +------+------+------+----------------+-----------------+
