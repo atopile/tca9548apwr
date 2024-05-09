@@ -79,6 +79,10 @@ module TCA9548APWR:
     # Reset
     reset.io ~ ic.RESET_
     reset.gnd ~ power.gnd
+    reset_pullup = new Resistor
+    reset_pullup.value = 10kohm +/- 10%
+    reset_pullup.package = "0402"
+    reset.io ~ reset_pullup.p1; reset_pullup.p2 ~ power.vcc
 
     # Address bits
     # +------+------+------+----------------+-----------------+
