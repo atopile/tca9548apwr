@@ -5,7 +5,6 @@ component _TCA9548APWR:
     # component TCA9548APWR
     footprint = "TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL"
     lcsc_id = "C130026"
-    mpn = "C130026"
     # pins
     signal A0 ~ pin 1
     signal A1 ~ pin 2
@@ -38,8 +37,8 @@ module TCA9548APWR:
     power = new ElectricPower
     i2c = new I2C
     reset = new ElectricLogic
-    i2c.sda ~ ic.SDA
-    i2c.scl ~ ic.SCL
+    i2c.sda.line ~ ic.SDA
+    i2c.scl.line ~ ic.SCL
 
     # connect the power
     power.vcc ~ ic.VCC
